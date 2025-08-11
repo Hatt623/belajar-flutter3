@@ -19,4 +19,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::resource('posts', \App\Http\Controllers\Api\PostController::class)
         ->except(['create', 'edit']);
+
+    Route::resource('events', \App\Http\Controllers\Api\EventController::class)
+        ->except(['create', 'edit']);
+
+    Route::resource('orders', \App\Http\Controllers\Api\OrderController::class)
+        ->except(['create', 'edit']);
+
+    Route::resource('tikets', \App\Http\Controllers\Api\TiketController::class)
+        ->except(['create', 'edit']);
 });
