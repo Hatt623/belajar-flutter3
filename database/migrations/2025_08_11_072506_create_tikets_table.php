@@ -23,8 +23,9 @@ return new class extends Migration
             $table->dateTime('end_date');
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('order_id')->references('id')->on('orders');
-            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+
 
             $table->timestamps();
         });

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->enum('status', ['pending','paid','cancelled'])->default('pending');
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
 
             $table->timestamps();
         });
