@@ -20,7 +20,7 @@ class Order extends Model
     }
 
     public function tiket() {
-        return $this->hasMany(Tiket::class);
+        return $this->hasMany(Tiket::class,'order_id');
     }
 
 }

@@ -16,7 +16,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $userId = $request->user()->id;
-        $orders = Order::with('event')
+        $orders = Order::with(['event', 'tiket'])
                     ->where('user_id', $userId)
                     ->latest()
                     ->get();
