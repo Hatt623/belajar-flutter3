@@ -11,15 +11,16 @@ class Order extends Model
 
     protected $fillable = ['user_id', 'event_id','name','location','code','start_date','end_date','quantity','price','status'];
 
-    public function user(){
+    public function user() {
         return $this->belongsTo(User::class);
     }
 
-    public function event(){
+    public function event() {
         return $this->belongsTo(Event::class);
     }
 
-    public function order(){
-        return $this->hasOne(Order::class);
+    public function tiket() {
+        return $this->hasMany(Tiket::class);
     }
+
 }

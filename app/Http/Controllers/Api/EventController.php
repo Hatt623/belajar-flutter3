@@ -30,7 +30,9 @@ class EventController extends Controller
             'end_date' => 'required',
             'location' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+            'price' => 'required|integer',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:4048',
+            
         ]);
 
         if ($validator->fails()) {
@@ -43,6 +45,7 @@ class EventController extends Controller
         $event ->end_date       = $request->end_date;
         $event ->location       = $request->location;
         $event ->description    = $request->description;
+        $event ->price          = $request->price;
 
         // image
         if($request->hasFile('image')){
@@ -84,7 +87,8 @@ class EventController extends Controller
             'end_date' => 'required',
             'location' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+            'price' => 'required|integer',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:4048',
         ]);
 
         if ($validator->fails()) {
@@ -97,6 +101,7 @@ class EventController extends Controller
         $event ->end_date       = $request->end_date;
         $event ->location       = $request->location;
         $event ->description    = $request->description;
+        $event ->price          = $request->price;
         // image
         if($request->hasFile('image')){
             if($event->image && Storage::disk('public')->exists($event->image)){

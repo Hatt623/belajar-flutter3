@@ -9,9 +9,14 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'start_date', 'end_date','location','description'];
+    protected $fillable = ['name', 'start_date', 'end_date','location','description','price'];
 
     public function order(){
-        return $this->hasOne(Order::class);
+        return $this->hasMany(Order::class);
     }
+
+    public function tiket() {
+        return $this->hasMany(Tiket::class);
+    }
+
 }

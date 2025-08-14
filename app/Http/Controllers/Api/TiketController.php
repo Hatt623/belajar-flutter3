@@ -12,7 +12,7 @@ class TiketController extends Controller
 {
     public function index()
     {
-        $tikets = Tiket::latest()->get();
+        $tikets = Tiket::with(['event', 'order'])->latest()->get();
         $res = [
             'success' => true,
             'data' => $tikets,
@@ -49,6 +49,7 @@ class TiketController extends Controller
         $tiket ->end_date       = $request->end_date;
 
         $tiket->save();
+        $tiket = Tiket::with(['event', 'order'])->find($tiket->id);
 
         // Response
         $res = [
@@ -61,7 +62,7 @@ class TiketController extends Controller
 
     public function show(Request $request, $id)
     {
-       $tiket = Tiket::find($id);
+       $tikets = Tiket::with(['event', 'order'])->latest()->get();
        if (! $tiket) {
         return response()->json([
             'message' => 'Data not found',
@@ -75,44 +76,45 @@ class TiketController extends Controller
        ], 200);
     }
 
-    public function update(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'user_id'=> 'required|exists:users,id',
-            'event_id' => 'required|exists:events,id',
-            'order_id' => 'required|exists:orders,id',
-            'name' => 'required|string|max:255|unique:tikets,id',
-            'location' => 'required|string|max:255',
-            'code' => 'required|string|max:255|unique:tikets,id',
-            'start_date' => 'required|string',
-            'end_date' => 'required|string',
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'user_id'=> 'required|exists:users,id',
+    //         'event_id' => 'required|exists:events,id',
+    //         'order_id' => 'required|exists:orders,id',
+    //         'name' => 'required|string|max:255|unique:tikets,id',
+    //         'location' => 'required|string|max:255',
+    //         'code' => 'required|string|max:255|unique:tikets,id',
+    //         'start_date' => 'required|string',
+    //         'end_date' => 'required|string',
+    //     ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(),400);
-        }
+    //     if ($validator->fails()) {
+    //         return response()->json($validator->errors(),400);
+    //     }
 
-        $tiket                  = Tiket::find($id);
-        $tiket ->user_id        = $request->user_id;
-        $tiket ->event_id       = $request->event_id;
-        $tiket ->order_id       = $request->order_id;
-        $tiket ->name           = $request->name;
-        $tiket ->location       = $request->location;
-        $tiket ->code           = $request->code;
-        $tiket ->start_date     = $request->start_date;
-        $tiket ->end_date       = $request->end_date;
+    //     $tiket                  = Tiket::find($id);
+    //     $tiket ->user_id        = $request->user_id;
+    //     $tiket ->event_id       = $request->event_id;
+    //     $tiket ->order_id       = $request->order_id;
+    //     $tiket ->name           = $request->name;
+    //     $tiket ->location       = $request->location;
+    //     $tiket ->code           = $request->code;
+    //     $tiket ->start_date     = $request->start_date;
+    //     $tiket ->end_date       = $request->end_date;
 
 
-        $tiket->save();
+    //     $tiket->save();
+    // $tiket = Tiket::with(['event', 'order'])->find($tiket->id);
 
-        // Response
-        $res = [
-            'success' => true,
-            'data' => $tiket,
-            'message' => 'Store tiket'
-        ];
-        return response()->json($res, 200);
-    }
+    //     // Response
+    //     $res = [
+    //         'success' => true,
+    //         'data' => $tiket,
+    //         'message' => 'Store tiket'
+    //     ];
+    //     return response()->json($res, 200);
+    // }
 
     public function destroy(Request $request, $id)
     {

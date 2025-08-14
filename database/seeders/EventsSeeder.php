@@ -23,7 +23,8 @@ class EventsSeeder extends Seeder
             'start_date' => '2025-01-01',
             'end_date' => '2025-01-05',
             'location' => 'Jakarta, Indonesia',
-            'description' => 'Join our part of Asia tour in Jakarta'
+            'description' => 'Join our part of Asia tour in Jakarta',
+            'price' => '2500000',
         ]);
     }
 }
